@@ -1,0 +1,68 @@
+package com.yuri.desafioselenium;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Desafio2 {
+
+	private WebDriver driver = null;
+	
+	@Before
+	public void preCondicao() throws Exception {
+		/**
+		 * É necessário que você  baixe o 'chromedriver' para sua máquina e altere o caminho
+		 * da propriedade abaixo
+		 * 
+		 * Local para baixar o chromedriver
+		 * https://sites.google.com/a/chromium.org/chromedriver/
+		 * 
+		 */
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\tecnico\\Desktop\\sel\\chromedriver.exe");
+		
+		driver = new ChromeDriver();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		
+		driver.get("https://www.coursera.org/");
+	}
+
+	@Test
+	public void criarContaNoCoursera() {
+		
+		selecionarOpcaoParaCriarConta();
+		preencherNomeCompleto();
+		preencherEmail();
+		preencherSenha();
+		criarConta();
+
+		assertEquals("Nome completo", driver.findElement(By.id("nameInput_33-label")).getText());
+	}
+	
+	private void selecionarOpcaoParaCriarConta() {
+		driver.findElement(By.id("banner_cta_button")).click();
+	}
+	
+	private void preencherNomeCompleto() {
+		driver.findElement(By.id("nameInput_30-input")).click();
+		driver.findElement(By.id("nameInput_30-input")).sendKeys("yuri tolla");
+	}
+	
+	private void preencherEmail() {
+		driver.findElement(By.id("emailInput_31-input")).click();
+		driver.findElement(By.id("emailInput_31-input")).sendKeys("yuritolla@gmail.com");
+	}
+	
+	private void preencherSenha() {
+		driver.findElement(By.id("passwordInput_32-input")).click();
+		driver.findElement(By.id("passwordInput_32-input")).sendKeys("987654321");
+	}
+	
+	private void criarConta() {
+		driver.findElement(By.className("Box_120drhm")).click();
+	}
+}
