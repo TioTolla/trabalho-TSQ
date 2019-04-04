@@ -1,0 +1,54 @@
+package com.yuri.desafioselenium;
+
+
+import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Desafio1 {
+
+	private WebDriver driver = null;
+
+	@Before
+	public void preCondicao() throws Exception {
+		/**
+		 * É necessário que você  baixe o 'chromedriver' para sua máquina e altere o caminho
+		 * da propriedade abaixo
+		 * 
+		 * Local para baixar o chromedriver
+		 * https://sites.google.com/a/chromium.org/chromedriver/
+		 * 
+		 */
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\tecnico\\Desktop\\sel\\chromedriver.exe");
+		
+		driver = new ChromeDriver();
+		driver.get("https://www.coursera.org/");
+	}
+
+	@Test
+	public void selecionarCurso() throws InterruptedException {
+		
+		buscarCursoDeTeste();
+		pesquisarCurso();
+		selecionarCursoPesquisado();
+		
+		assertEquals("Programa de cursos integrados Learn Chinese: HSK Test Preparation", driver.findElement(By.className("H2_1pmnvep-o_O-weightNormal_s9jwp5-o_O-fontHeadline_1uu0gyz")).getText());
+	}
+
+	private void buscarCursoDeTeste() {
+		driver.findElement(By.className("react-autosuggest__input")).sendKeys("Testes");
+	}
+	
+	private void pesquisarCurso() {
+		driver.findElement(By.className("search-button")).click();
+	}
+	
+	private void selecionarCursoPesquisado() {
+		driver.findElement(By.className("card-content")).click();
+	}
+
+}
